@@ -35,7 +35,7 @@
     <!-- Modal -->
     <div class="modal_bg" onclick="closeModal()"></div>
     <div class="modal">
-      <div class="app_container">
+      <!-- <div class="app_container">
         <div class="app_header">
           <p class="app_title"></p>
         </div>
@@ -51,7 +51,7 @@
         <div class="btnBox">
           <button class = "updateBtn" onclick="updateApp()">UPDATE</button>
           <button class="cancelBtn" onclick="cancelModal()">CANCEL</button>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- Navigation-->
@@ -101,7 +101,7 @@
           <div class="col-lg-4">
             <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
               <div class="features-icons-icon d-flex">
-                <i class="bi bi-calendar-date m-auto text-icon" id="calendar" onclick="popModal()"></i>
+                <i class="bi bi-calendar-date m-auto text-icon" id="calendar" onclick="popModal('app')"></i>
               </div>
               <h3 class="calendar_title">Appointment</h3>
               <p class="lead mb-0" id="calendar_description">See your appointment detail</p>
@@ -110,19 +110,10 @@
           <div class="col-lg-4">
             <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
               <div class="features-icons-icon d-flex">
-                <i class="bi bi-lightning m-auto text-icon"></i>
+                <i class="bi bi-lightning m-auto text-icon" onclick="popModal('vac')"></i>
               </div>
-              <h3>Fast</h3>
-              <p class="lead mb-0">Schedule an appointment in minutes</p>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-              <div class="features-icons-icon d-flex">
-                <i class="bi bi-check-circle m-auto text-icon"></i>
-              </div>
-              <h3>Convenient</h3>
-              <p class="lead mb-0">Get treated, and get better</p>
+              <h3>COVID Vaccination</h3>
+              <p class="lead mb-0">Schedule your vaccination ASAP</p>
             </div>
           </div>
         </div>

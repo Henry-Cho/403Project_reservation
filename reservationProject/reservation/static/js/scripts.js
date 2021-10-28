@@ -68,10 +68,13 @@ let appointment_info = {
     "time": "10:00 A.M.",
     "doctor": "Smith",
     "department": "Internal Medicine",
-    "symptom": "coughing"
+    "symptom": "coughing",
+    "vaccinated": false,
+    "first_dose": false,
+    "second_dose": false,
 }
 
-function popModal(e) {
+function popModal(type) {
     const modal_bg = document.querySelector(".modal_bg");
     const modal = document.querySelector(".modal");
     const nav = document.querySelector(".navbar");
@@ -79,23 +82,53 @@ function popModal(e) {
     const body = document.querySelector(".body");
     const bodyHeight = body.getBoundingClientRect().height;
     const restHeight = bodyHeight - navHeight;
+    if (type === "app") {
+        modal.innerHTML = `
+    <div class="app_container">
+        <div class="app_header">
+        <p class="app_title">${appointment_info.user_name}'s Appointment</p>
+    </div>
+    <div>
+        <p class="app_date">Appointment Date: <b>${appointment_info.date}</b></p>
+        <p class="app_time">Appointment Time: <b>${appointment_info.time}</b></p>
+        <p class="byuID">Your BYU ID: <b>${appointment_info.BYU_ID}</b></p>
+        <p class="app_doctor">Name of Doctor: <b>Dr. ${appointment_info.doctor}</b></p>
+        <p class="app_department">Department: <b>${appointment_info.department}</b></p>
+        <p class="symptom">Symptom you have: <b>${appointment_info.symptom}</b></p>
+    </div>
 
-    const app_title = document.querySelector(".app_title");
-    const app_date = document.querySelector(".app_date");
-    const app_time = document.querySelector(".app_time");
-    const byu_id = document.querySelector(".byuID");
-    const app_doctor = document.querySelector(".app_doctor");
-    const app_location = document.querySelector(".app_department");
-    const symptom = document.querySelector(".symptom")
+    <div class="btnBox">
+        <button class = "updateBtn" onclick="updateApp()">UPDATE</button>
+        <button class="cancelBtn" onclick="cancelModal()">CANCEL</button>
+    </div>
+    `;
+    }
+    else {
+        modal.innerHTML = `
+    <div class="app_container">
+        <div class="app_header">
+        <p class="app_title">${appointment_info.user_name}'s Vaccination</p>
+    </div>
+    <p class="byuID">Your BYU ID: <b>${appointment_info.BYU_ID}</b></p>
+    <div>
+        <p>Available Date & Time on This Week</p>
+        <p>2021.10.1 ~ 10.5</p>
+        <p>2021.10.1</p>
+        <div>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+        </div>
+    </div>
 
-    app_title.innerHTML = `${appointment_info.user_name}'s Appointment`;
-    app_date.innerHTML = `Appointment Date: <b>${appointment_info.date}</b>`;
-    app_time.innerHTML = `Appointment Time: <b>${appointment_info.time}</b>`;
-    byu_id.innerHTML = `Your BYU ID: <b>${appointment_info.BYU_ID}</b>`;
-    app_doctor.innerHTML = `Name of Doctor: <b>Dr. ${appointment_info.doctor}</b>`;
-    app_location.innerHTML = `Department: <b>${appointment_info.department}</b>`;
-    symptom.innerHTML = `Symptom you have: <b>${appointment_info.symptom}</b>`;
-
+    <div class="btnBox">
+        <button class = "updateBtn" onclick="updateApp()">UPDATE</button>
+        <button class="cancelBtn" onclick="cancelModal()">CANCEL</button>
+    </div>
+        `;
+    }
     modal_bg.style.height = `${restHeight}px`;
     modal_bg.style.display="block";
     modal.style.display = "block";

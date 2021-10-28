@@ -716,6 +716,7 @@ progress {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   margin-top: calc(var(--bs-gutter-y) * -1);
   margin-right: calc(var(--bs-gutter-x) * -0.5);
@@ -11764,7 +11765,7 @@ footer.footer {
   transform: translate(48%, -30%);
   top: 45%;
   width: 50vw;
-  height: 100vh;
+  height: 50vh;
   background: white;
   opacity: 1;
   z-index: 3;
