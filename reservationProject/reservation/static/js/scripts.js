@@ -13,6 +13,24 @@
 // This variable will be assigned a boolean value after checking this user's info in our database
 let haveAppointment = true;
 
+// toggle
+const toggleClick = () => {
+    const toggleBtn = document.querySelector(".toggleBtn");
+    const toggle = document.querySelector(".toggle");
+    if (toggleBtn.classList.contains("right")) {
+        console.log("DDDDD")
+        toggleBtn.classList.remove("right");
+        toggleBtn.innerHTML = "OFF";
+        toggle.style.background = '#ccc';
+        popModal("app");
+        return;
+    }
+    toggleBtn.classList.add("right");
+    toggleBtn.innerHTML = "ON";
+    toggle.style.backgroundColor = '#2196F3';
+    popModal("vac_app");
+}
+
 // modal
 
 const closeModal = () => {
@@ -72,18 +90,25 @@ let appointment_info = {
     "vaccinated": false,
     "first_dose": false,
     "second_dose": false,
+    "vac_date": "11/11/2021",
+    "vac_time": "10:00 A.M.",
 }
 
 function popModal(type) {
+    const toggleBox = document.querySelector(".toggleBox");
+    if (toggleBox.style.display === "none") {
+        toggleBox.style.display = "block";
+    }
     const modal_bg = document.querySelector(".modal_bg");
     const modal = document.querySelector(".modal");
+    const modal_content = document.querySelector(".modal_content");
     const nav = document.querySelector(".navbar");
     const navHeight = nav.getBoundingClientRect().height;
     const body = document.querySelector(".body");
     const bodyHeight = body.getBoundingClientRect().height;
     const restHeight = bodyHeight - navHeight;
     if (type === "app") {
-        modal.innerHTML = `
+        modal_content.innerHTML = `
     <div class="app_container">
         <div class="app_header">
         <p class="app_title">${appointment_info.user_name}'s Appointment</p>
@@ -103,8 +128,10 @@ function popModal(type) {
     </div>
     `;
     }
-    else {
-        modal.innerHTML = `
+    else if (type === 'vac') {
+        const toggleBox = document.querySelector(".toggleBox");
+        toggleBox.style.display = "none";
+        modal_content.innerHTML = `
     <div class="app_container">
         <div class="app_header">
         <p class="app_title">${appointment_info.user_name}'s Vaccination</p>
@@ -129,6 +156,25 @@ function popModal(type) {
     <div class="btnBox">
         <button class = "updateBtn">CONFIRM</button>
         <button class="cancelBtn">CLOSE</button>
+    </div>
+        `;
+    }
+    else {
+        modal_content.innerHTML = `
+    <div class="app_container">
+        <div class="app_header">
+        <p class="app_title">Vaccination Appointment</p>
+    </div>
+    <p class="byuID">Your BYU ID: <b>${appointment_info.BYU_ID}</b></p>
+    <div>
+        <p>Appointment Date: <b>${appointment_info.vac_date}</b></p>
+        <p>Appointment Time: <b>${appointment_info.vac_time}</b></p>
+        <p>First dose</p>
+    </div>
+
+    <div class="btnBox">
+        <button class = "updateBtn">UPDATE</button>
+        <button class="cancelBtn">CANCEL</button>
     </div>
         `;
     }

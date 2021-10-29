@@ -11765,7 +11765,6 @@ footer.footer {
   transform: translate(48%, -30%);
   top: 45%;
   width: 50vw;
-  height: 50vh;
   background: white;
   opacity: 1;
   z-index: 3;
@@ -11854,4 +11853,32 @@ footer.footer {
 
 .bounce {
   animation: bounce 2s infinite;
+}
+
+.toggle {
+  width: 60px;
+  height: 40px;
+  border-radius: 50px;
+  background-color: #ccc;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggleBtn {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 50%;
+  left: 5px;
+  bottom: 5px;
+  transition: all .7s ease-in-out;
+  line-height: 30px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.toggleBtn.right{
+  transform: translateX(20px);
+  transition: all .7s ease-in-out;
 }
