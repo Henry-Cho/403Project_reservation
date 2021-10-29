@@ -115,17 +115,20 @@ function popModal(type) {
         <p>2021.10.1 ~ 10.5</p>
         <p>2021.10.1</p>
         <div>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
+            <button>08:00 A.M.</button>
+            <br>
+            <button>09:00 A.M.</button>
+            <br>
+            <button>10:00 A.M.</button>
+            <br>
+            <button>11:00 A.M.</button>
+            <br>
         </div>
     </div>
 
     <div class="btnBox">
-        <button class = "updateBtn" onclick="updateApp()">UPDATE</button>
-        <button class="cancelBtn" onclick="cancelModal()">CANCEL</button>
+        <button class = "updateBtn">CONFIRM</button>
+        <button class="cancelBtn">CLOSE</button>
     </div>
         `;
     }
