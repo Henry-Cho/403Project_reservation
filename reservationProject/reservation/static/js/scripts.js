@@ -141,7 +141,7 @@ function popModal(type) {
         <p>Available Date & Time on This Week</p>
         <p>2021.10.1 ~ 10.5</p>
         <p>2021.10.1</p>
-        <div>
+        <div class="available_time">
             <button>08:00 A.M.</button>
             <br>
             <button>09:00 A.M.</button>
@@ -155,7 +155,7 @@ function popModal(type) {
 
     <div class="btnBox">
         <button class = "updateBtn">CONFIRM</button>
-        <button class="cancelBtn">CLOSE</button>
+        <button class="cancelBtn" onclick="closeModal()">CLOSE</button>
     </div>
         `;
     }
@@ -274,3 +274,4 @@ const showMain = () => {
     calendarIcon.classList.add("bounce");
 }
 
+// set vaccine
