@@ -275,7 +275,7 @@ function popModal(type) {
 
     <div class="btnBox">
         <button class = "updateBtn">UPDATE</button>
-        <button class="cancelBtn">CANCEL</button>
+        <button class="cancelBtn" onclick="cancel_vac()">CANCEL</button>
     </div>
         `;
     }
@@ -303,7 +303,7 @@ const vac_confirm = () => {
     }
     swalWithBootstrapButtons.fire({
         title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        text: "Want to schedule for vaccination?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Sure',
@@ -413,6 +413,7 @@ const showMain = () => {
     const calendarIcon = document.querySelector("#calendar");
     const calendarTitle = document.querySelector(".calendar_title");
     const calendarDescription = document.querySelector("#calendar_description");
+    const vac_app = document.querySelector("#vac_app");
 
     if (haveAppointment === false && vac_date_info.time === "") {
         calendarIcon.style.color = 'gray';
@@ -420,8 +421,6 @@ const showMain = () => {
         calendarIcon.style.pointerEvents = 'none';
         calendarDescription.innerHTML = "No appointment made"
         calendarIcon.classList.remove("bounce");
-
-
     }
     else if (haveAppointment === true || vac_date_info.time !== "") {
         calendarIcon.classList.add("bounce");
@@ -430,6 +429,19 @@ const showMain = () => {
         calendarTitle.innerHTML = "Appointment";
         calendarDescription.innerHTML = "See your appointment detail"
         calendarIcon.onclick = popModal;
+    }
+
+    if (vac_date_info.time === "") {
+        vac_app.innerHTML = `
+        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+                <i class="bi bi-lightning m-auto text-icon" onclick="popModal('vac')"></i>
+            </div>
+        <h3>COVID Vaccination</h3>
+        <p class="lead mb-0">Schedule your vaccination ASAP</p>
+        </div>
+        `;
+
     }
 }
 
