@@ -11933,3 +11933,8 @@ footer.footer {
   background-color: rgb(255, 159, 172);
   transition: all 100ms ease-in-out;
 }
+
+.confirmed {
+  color: #808080;
+  pointer-events: none;
+}
