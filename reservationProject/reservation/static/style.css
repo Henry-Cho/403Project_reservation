@@ -11884,6 +11884,15 @@ footer.footer {
   transition: all .55s ease-in-out;
 }
 
+.available_time {
+  width: 100%;
+  display: flex;
+}
+
+.available_time div {
+  width: 50%;
+}
+
 .available_time button{
   border: none;
   margin-bottom: 10px;
@@ -11894,4 +11903,38 @@ footer.footer {
 .available_time button:hover {
   background-color: rgb(255, 159, 172);
   transition: all 100ms ease-in-out;
+}
+
+/* vaccine modal css */
+.date_btnBox {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.date_btnBox button {
+  margin: 0 10px 10px 0;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.date_btnBox button.click {
+  background-color: rgb(255, 159, 172);
+  transition: all 100ms ease-in-out;
+}
+
+.date_btnBox button:hover {
+  background-color: rgb(255, 159, 172);
+  transition: all 100ms ease-in-out;
+}
+
+.timeBtn.click {
+  background-color: rgb(255, 159, 172);
+  transition: all 100ms ease-in-out;
+}
+
+.confirmed {
+  color: #808080;
+  pointer-events: none;
 }
