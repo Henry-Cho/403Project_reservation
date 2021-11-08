@@ -272,7 +272,7 @@ const vac_confirm = () => {
         cancelButtonText: 'Check again',
         reverseButtons: true
     }).then((result) => {
-        if (result.isConfirmed) { 
+        if (result.isConfirmed) {
             swalWithBootstrapButtons.fire(
                 'Confirmed!',
                 'Your appointment has been made.',
