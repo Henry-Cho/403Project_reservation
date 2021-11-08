@@ -11939,3 +11939,21 @@ footer.footer {
   transform: none !important;
   cursor:default !important;
 }
+
+/* dose type */
+
+.doseBox {
+  width: 100%;
+}
+
+.doseBox button {
+  margin: 0 10px 0 0;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.doseBox button:hover {
+  background-color: rgb(255, 159, 172);
+  transition: all 100ms ease-in-out;
+}
