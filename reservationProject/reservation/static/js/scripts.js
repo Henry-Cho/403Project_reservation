@@ -102,18 +102,18 @@ let appointment_info = {
     "vaccinated": false,
     "first_dose": false,
     "second_dose": false,
-    "vac_date": "11/11/2021",
-    "vac_time": "10:00 A.M.",
 }
 
 let vac_date_info = {
     date: "",
     time: "",
+    dose: ""
 }
 
 let temp_info = {
     date: "",
     time: "",
+    dose: ""
 }
 
 function popModal(type) {
@@ -191,8 +191,6 @@ function popModal(type) {
             } 
         }
 
-        console.log(available_dates)
-
         let date_buttons = `<div class = "date_btnBox">`;
         if (available_dates.length > 0) {
             for (let i = 0; i < available_dates.length; i++) {
@@ -245,7 +243,13 @@ function popModal(type) {
                 <br>
             </div>
         </div>
-
+        <br>
+        <div class="doseBox">
+            <p><b>Select Dose</b></p>
+            <button id = "first" class="timeBtn" onclick="clickDose(event)">First Dose</button>
+            <button id = "second" class="timeBtn" onclick="clickDose(event)">Second Dose</button>
+        </div>
+        <br>
         <div class="btnBox">
             <button class = "updateBtn" onclick="vac_confirm()">CONFIRM</button>
             <button class="cancelBtn" onclick="closeModal()">CLOSE</button>
@@ -273,11 +277,11 @@ function popModal(type) {
     <div>
         <p>Appointment Date: <b>${vac_date_info.date}</b></p>
         <p>Appointment Time: <b>${vac_date_info.time}</b></p>
-        <p>First dose</p>
+        <p>${vac_date_info.dose}</p>
     </div>
 
     <div class="btnBox">
-        <button class = "updateBtn">UPDATE</button>
+        <button class = "updateBtn" onclick="update_vac()">UPDATE</button>
         <button class="cancelBtn" onclick="cancel_vac()">CANCEL</button>
     </div>
         `;
@@ -285,57 +289,6 @@ function popModal(type) {
     modal_bg.style.height = `${restHeight}px`;
     modal_bg.style.display="block";
     modal.style.display = "block";
-}
-
-const vac_confirm = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-    })
-
-    if (temp_info.date === "" || temp_info.time === "") {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'You need every info!',
-        })
-        return;
-    }
-    swalWithBootstrapButtons.fire({
-        title: 'Are you sure?',
-        text: "Want to schedule for vaccination?",
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sure',
-        cancelButtonText: 'Check again',
-        reverseButtons: true
-    }).then((result) => {
-        if (result.isConfirmed) {
-            swalWithBootstrapButtons.fire(
-                'Confirmed!',
-                'Your appointment has been made.',
-                'success'
-            )
-            vac_date_info.date = temp_info.date;
-            vac_date_info.time = temp_info.time;
-            closeModal();
-            const vac_app = document.querySelector("#vac_app");
-            vac_app.innerHTML = `
-            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                <div class="features-icons-icon d-flex">
-                    <i class="bi bi-lightning m-auto text-icon confirmed"></i>
-                </div>
-                <h3>COVID Vaccination</h3>
-                <p class="lead mb-0">Your vaccination has been scheduled.</p>
-            </div>
-            `;
-            showMain();
-        }
-    })
 }
 
 const updateAppointment = () => {
@@ -435,6 +388,23 @@ const showMain = () => {
         calendarIcon.onclick = popModal;
     }
 
+    if (appointment_info.first_dose && appointment_info.second_dose) {
+        appointment_info.vaccinated = true;
+    }
+    // If the user is fully vactinated
+    if (appointment_info.vaccinated) {
+        vac_app.innerHTML = `
+        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+                <i class="bi bi-lightning m-auto text-icon" confirmed></i>
+            </div>
+        <h3>COVID Vaccination</h3>
+        <p class="lead mb-0">Congrats! You are FULLY vaccinated.</p>
+        </div>
+        `;
+        return;
+    }
+
     if (vac_date_info.time === "") {
         vac_app.innerHTML = `
         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
@@ -445,8 +415,58 @@ const showMain = () => {
         <p class="lead mb-0">Schedule your vaccination ASAP</p>
         </div>
         `;
-
     }
+}
+
+const vac_confirm = () => {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+
+    if (temp_info.date === "" || temp_info.time === "" || temp_info.dose === "") {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You need every info!',
+        })
+        return;
+    }
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "Want to schedule for vaccination?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sure',
+        cancelButtonText: 'Check again',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire(
+                'Confirmed!',
+                'Your appointment has been made.',
+                'success'
+            )
+            vac_date_info.date = temp_info.date;
+            vac_date_info.time = temp_info.time;
+            vac_date_info.dose = temp_info.dose + " dose"
+            closeModal();
+            const vac_app = document.querySelector("#vac_app");
+            vac_app.innerHTML = `
+            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                <div class="features-icons-icon d-flex">
+                    <i class="bi bi-lightning m-auto text-icon confirmed"></i>
+                </div>
+                <h3>COVID Vaccination</h3>
+                <p class="lead mb-0">Your vaccination has been scheduled.</p>
+            </div>
+            `;
+            showMain();
+        }
+    })
 }
 
 // set vaccine
@@ -545,4 +565,145 @@ const cancel_vac = () => {
     closeModal();
 }
 
+// select dose type
 
+const clickDose = (e) => {
+    const doseBox = document.querySelector(".doseBox");
+    const btns = doseBox.querySelectorAll("button");
+    
+    let alreadyClicked = false;
+
+    btns.forEach((b) => {
+        if (b.classList.contains("click")) {
+            b.classList.remove("click");
+            alreadyClicked = true;
+            alreadyID = b.id;
+        }
+    })
+
+    if (alreadyClicked && alreadyID === e.target.id) {
+        temp_info.dose = "";
+        return;
+    }
+
+    document.getElementById(e.target.id).classList.add("click");
+    temp_info.dose = e.target.id;
+}
+
+// update vaccine appointment 
+
+const update_vac = () => {
+    const modal_bg = document.querySelector(".modal_bg");
+    const modal = document.querySelector(".modal");
+    const modal_content = document.querySelector(".modal_content");
+
+    const now = new Date();
+    let str = now.toISOString().split("T")[0].split("-").join("/");
+    let today =  new Date(str);
+    const today_idx = today.getDay();
+    today.setDate(today.getDate() - (today_idx - 1));
+
+    const monday = today.toISOString().split("T")[0];
+
+    let week = {};
+    week[monday] = today_idx > 1 ? false : true;
+
+    let day = today;
+    for (let i = 1; i < 5; i++) {
+        day.setDate(day.getDate() + 1)
+        week[day.toISOString().split("T")[0]] = today_idx > i + 1 ? false : true;
+    }
+
+    const available_dates = [];
+
+    for (let i = 0; i < 5; i++) {
+        if (Object.values(week)[i]) {
+            available_dates.push(Object.keys(week)[i])
+        } 
+    }
+
+    let date_buttons = `<div class = "date_btnBox">`;
+    if (available_dates.length > 0) {
+        for (let i = 0; i < available_dates.length; i++) {
+            if (available_dates[i] === vac_date_info.date) {
+                date_buttons += `
+                <button id= "${available_dates[i]}" class="dateBtn click" onclick="clickDate(event)">${available_dates[i]}</button>
+                `;
+                continue;
+            }
+            date_buttons += `
+                <button id= "${available_dates[i]}" class="dateBtn" onclick="clickDate(event)">${available_dates[i]}</button>
+            `;
+        }
+        date_buttons += `</div>`;
+    }
+
+    let time_buttons_M = ``;
+    let startTime = 8;
+    for (let i = 0; i < 5; i++) {
+        let time = startTime < 10 ? "0" + startTime.toString() : startTime.toString();
+        if (time === vac_date_info.time.split(" ")[0].split(":")[0]) {
+            time_buttons_M += `
+            <button id = "${time}:00" class="timeBtn click" onclick="clickTime(event)">${time}:00 AM</button><br>
+            `;
+            ++startTime;
+            continue;
+        }
+        time_buttons_M += `
+        <button id = "${time}:00" class="timeBtn" onclick="clickTime(event)">${time}:00 AM</button><br>
+        `;
+        ++startTime;
+    }
+
+    let time_buttons_A = ``;
+    for (let i = 0; i < 5; i++) {
+        let time = startTime.toString();
+        if (time === vac_date_info.time.split(" ")[0].split(":")[0]) {
+            time_buttons_A += `
+            <button id = "${time}:00" class="timeBtn click" onclick="clickTime(event)">${time}:00 PM</button><br>
+            `;
+            ++startTime;
+            continue;
+        }
+        time_buttons_A += `
+        <button id = "${time}:00" class="timeBtn" onclick="clickTime(event)">${time}:00 PM</button><br>
+        `;
+        ++startTime;
+    }
+
+    modal_content.innerHTML = `
+    <div class="app_container">
+        <div class="app_header">
+        <p class="app_title">${appointment_info.user_name}'s Vaccination</p>
+    </div>
+    <p class="byuID">Your BYU ID: <b>${appointment_info.BYU_ID}</b></p>
+    <div>
+        <p><b>Available Date (${Object.keys(week)[0]} ~ ${Object.keys(week)[Object.values(week).length - 1]})</b></p>
+        ${date_buttons}
+        <p><b>Available Time</b></p>
+        <div class="available_time">
+            <div class="morningBox">
+            <p><b>Morning</b></p>
+                ${time_buttons_M}
+            </div>
+            <div class="afternoonBox">
+            <p><b>Afternoon</b></p>
+                ${time_buttons_A}
+            </div>
+        </div>
+        <br>
+        <div class="doseBox">
+            <p><b>Select Dose</b></p>
+            ${vac_date_info.dose === "first dose" ? `<button id = "first" class="timeBtn click" onclick="clickDose(event)">First Dose</button>` : `<button id = "first" class="timeBtn" onclick="clickDose(event)">First Dose</button>`}
+            ${vac_date_info.dose === "second dose" ? `<button id = "second" class="timeBtn click" onclick="clickDose(event)">Second Dose</button>` : `<button id = "second" class="timeBtn" onclick="clickDose(event)">Second Dose</button>`}
+        </div>
+        <br>
+        <div class="btnBox">
+            <button class = "updateBtn" onclick="vac_confirm()">CONFIRM</button>
+            <button class="cancelBtn" onclick="closeModal()">CLOSE</button>
+        </div>
+    </div>
+        `;
+
+        
+}
