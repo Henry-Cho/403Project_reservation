@@ -11935,6 +11935,7 @@ footer.footer {
 }
 
 .confirmed {
-  color: #808080;
-  pointer-events: none;
+  color: gray;
+  transform: none !important;
+  cursor:default !important;
 }

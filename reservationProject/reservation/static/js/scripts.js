@@ -11,7 +11,8 @@
 // if so, show that he/she has an appointment
 // otherwise, change the calendar icon's color more lightly & replace the text with "You have no appointment"
 // This variable will be assigned a boolean value after checking this user's info in our database
-let haveAppointment = true;
+let haveAppointment = false;
+let have_vac_app = false;
 
 // toggle
 const toggleClick = () => {
@@ -37,9 +38,20 @@ const closeModal = () => {
     const btnBox = document.querySelector(".btnBox");
     const modal_bg = document.querySelector(".modal_bg");
     const modal = document.querySelector(".modal");
+    const toggleBtn = document.querySelector(".toggleBtn");
+    const toggle = document.querySelector(".toggle");
+    if (toggleBtn.classList.contains("right")) {
+        toggleBtn.classList.remove("right");
+        toggleBtn.innerHTML = "OFF";
+        toggle.style.background = '#ccc';
+        popModal("app");
+    }
 
     modal_bg.style.display="none";
     modal.style.display = "none";
+
+    temp_info.date = "";
+    temp_info.time = "";
 
     btnBox.innerHTML = `<button class = "updateBtn" onclick="updateApp()">UPDATE</button>
     <button class="cancelBtn" onclick="cancelModal()">CANCEL</button>`
@@ -99,7 +111,13 @@ let vac_date_info = {
     time: "",
 }
 
+let temp_info = {
+    date: "",
+    time: "",
+}
+
 function popModal(type) {
+    type = typeof(type) === "string" ? type : "app"; 
     const toggleBox = document.querySelector(".toggleBox");
     if (toggleBox.style.display === "none") {
         toggleBox.style.display = "block";
@@ -113,6 +131,19 @@ function popModal(type) {
     const bodyHeight = body.getBoundingClientRect().height;
     const restHeight = bodyHeight - navHeight;
     if (type === "app") {
+        if (haveAppointment === false) {
+            modal_content.innerHTML = `
+            <div class="app_container">
+                <div class="app_header">
+                    <p class="app_title">You have no appointment with a doctor.</p>
+                </div>
+            </div>
+            `;
+            modal_bg.style.height = `${restHeight}px`;
+            modal_bg.style.display="block";
+            modal.style.display = "block";
+            return;
+        }
         modal_content.innerHTML = `
     <div class="app_container">
         <div class="app_header">
@@ -223,6 +254,16 @@ function popModal(type) {
         `;
     }
     else {
+        if (vac_date_info.time === "") {
+            modal_content.innerHTML = `
+            <div class="app_container">
+                <div class="app_header">
+                    <p class="app_title">You have no vaccination appointment.</p>
+                </div>
+            </div>
+            `;
+            return;
+        }
         modal_content.innerHTML = `
     <div class="app_container">
         <div class="app_header">
@@ -230,14 +271,14 @@ function popModal(type) {
     </div>
     <p class="byuID">Your BYU ID: <b>${appointment_info.BYU_ID}</b></p>
     <div>
-        <p>Appointment Date: <b>${appointment_info.vac_date}</b></p>
-        <p>Appointment Time: <b>${appointment_info.vac_time}</b></p>
+        <p>Appointment Date: <b>${vac_date_info.date}</b></p>
+        <p>Appointment Time: <b>${vac_date_info.time}</b></p>
         <p>First dose</p>
     </div>
 
     <div class="btnBox">
         <button class = "updateBtn">UPDATE</button>
-        <button class="cancelBtn">CANCEL</button>
+        <button class="cancelBtn" onclick="cancel_vac()">CANCEL</button>
     </div>
         `;
     }
@@ -255,7 +296,7 @@ const vac_confirm = () => {
         buttonsStyling: false
     })
 
-    if (vac_date_info.date === "" || vac_date_info.time === "") {
+    if (temp_info.date === "" || temp_info.time === "") {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -265,6 +306,7 @@ const vac_confirm = () => {
     }
     swalWithBootstrapButtons.fire({
         title: 'Are you sure?',
+        text: "Want to schedule for vaccination?",
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -277,9 +319,23 @@ const vac_confirm = () => {
                 'Confirmed!',
                 'Your appointment has been made.',
                 'success'
-        )}
+            )
+            vac_date_info.date = temp_info.date;
+            vac_date_info.time = temp_info.time;
+            closeModal();
+            const vac_app = document.querySelector("#vac_app");
+            vac_app.innerHTML = `
+            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                <div class="features-icons-icon d-flex">
+                    <i class="bi bi-lightning m-auto text-icon confirmed"></i>
+                </div>
+                <h3>COVID Vaccination</h3>
+                <p class="lead mb-0">Your vaccination has been scheduled.</p>
+            </div>
+            `;
+            showMain();
+        }
     })
-    closeModal();
 }
 
 const updateAppointment = () => {
@@ -358,19 +414,39 @@ const updateApp = () => {
 }
 
 const showMain = () => {
-    console.log(haveAppointment);
     const calendarIcon = document.querySelector("#calendar");
     const calendarTitle = document.querySelector(".calendar_title");
     const calendarDescription = document.querySelector("#calendar_description");
-    if (haveAppointment === false) {
+    const vac_app = document.querySelector("#vac_app");
+
+    if (haveAppointment === false && vac_date_info.time === "") {
         calendarIcon.style.color = 'gray';
-        calendarIcon.style.pointerEvents = 'none';
         calendarTitle.innerHTML = "Appointment";
+        calendarIcon.style.pointerEvents = 'none';
         calendarDescription.innerHTML = "No appointment made"
         calendarIcon.classList.remove("bounce");
-        return;
     }
-    calendarIcon.classList.add("bounce");
+    else if (haveAppointment === true || vac_date_info.time !== "") {
+        calendarIcon.classList.add("bounce");
+        calendarIcon.style.color = 'rgb(1,51,104)';
+        calendarIcon.style.pointerEvents = 'auto';
+        calendarTitle.innerHTML = "Appointment";
+        calendarDescription.innerHTML = "See your appointment detail"
+        calendarIcon.onclick = popModal;
+    }
+
+    if (vac_date_info.time === "") {
+        vac_app.innerHTML = `
+        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+                <i class="bi bi-lightning m-auto text-icon" onclick="popModal('vac')"></i>
+            </div>
+        <h3>COVID Vaccination</h3>
+        <p class="lead mb-0">Schedule your vaccination ASAP</p>
+        </div>
+        `;
+
+    }
 }
 
 // set vaccine
@@ -391,12 +467,12 @@ const clickDate = (e) => {
     })
 
     if (alreadyClicked && alreadyID === e.target.id) {
-        vac_date_info.date = "";
+        temp_info.date = "";
         return;
     }
 
     document.getElementById(e.target.id).classList.add("click");
-    vac_date_info.date = e.target.id;
+    temp_info.date = e.target.id;
 }
 
 const clickTime = (e) => {
@@ -428,10 +504,45 @@ const clickTime = (e) => {
     })
 
     if (alreadyClicked && alreadyID === e.target.id) {
-        vac_date_info.time = "";
+        temp_info.time = "";
         return;
     }
 
     document.getElementById(e.target.id).classList.add("click");
-    vac_date_info.time = e.target.id + (parent === "M" ? " AM" : " PM");
+    temp_info.time = e.target.id + (parent === "M" ? " AM" : " PM");
 }
+
+// cancel vaccine appointment
+const cancel_vac = () => {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Cancel It!',
+        cancelButtonText: 'Never Mind!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire(
+            'Canceled!',
+            'Your vaccine appointment has been canceled.',
+            'success'
+        )
+            vac_date_info.date = "";
+            vac_date_info.time = "";
+            showMain();
+        }
+    })
+    closeModal();
+}
+
+
