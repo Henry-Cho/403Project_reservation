@@ -640,7 +640,7 @@ const update_vac = () => {
 
     let time_buttons_M = ``;
     let startTime = 8;
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
         let time = startTime < 10 ? "0" + startTime.toString() : startTime.toString();
         if (time === vac_date_info.time.split(" ")[0].split(":")[0]) {
             time_buttons_M += `
@@ -656,8 +656,8 @@ const update_vac = () => {
     }
 
     let time_buttons_A = ``;
-    for (let i = 0; i < 5; i++) {
-        let time = startTime.toString();
+    for (let i = 0; i < 4; i++) {
+        let time = "0" + (startTime - 11).toString();
         if (time === vac_date_info.time.split(" ")[0].split(":")[0]) {
             time_buttons_A += `
             <button id = "${time}:00" class="timeBtn click" onclick="clickTime(event)">${time}:00 PM</button><br>
