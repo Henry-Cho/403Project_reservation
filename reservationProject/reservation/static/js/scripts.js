@@ -626,6 +626,7 @@ const update_vac = () => {
     if (available_dates.length > 0) {
         for (let i = 0; i < available_dates.length; i++) {
             if (available_dates[i] === vac_date_info.date) {
+                temp_info.date = vac_date_info.date;
                 date_buttons += `
                 <button id= "${available_dates[i]}" class="dateBtn click" onclick="clickDate(event)">${available_dates[i]}</button>
                 `;
@@ -643,6 +644,7 @@ const update_vac = () => {
     for (let i = 0; i < 4; i++) {
         let time = startTime < 10 ? "0" + startTime.toString() : startTime.toString();
         if (time === vac_date_info.time.split(" ")[0].split(":")[0]) {
+            temp_info.time = vac_date_info.time;
             time_buttons_M += `
             <button id = "${time}:00" class="timeBtn click" onclick="clickTime(event)">${time}:00 AM</button><br>
             `;
@@ -659,6 +661,7 @@ const update_vac = () => {
     for (let i = 0; i < 4; i++) {
         let time = "0" + (startTime - 11).toString();
         if (time === vac_date_info.time.split(" ")[0].split(":")[0]) {
+            temp_info.time = vac_date_info.time;
             time_buttons_A += `
             <button id = "${time}:00" class="timeBtn click" onclick="clickTime(event)">${time}:00 PM</button><br>
             `;
@@ -670,6 +673,8 @@ const update_vac = () => {
         `;
         ++startTime;
     }
+
+    temp_info.dose = vac_date_info.dose;
 
     modal_content.innerHTML = `
     <div class="app_container">
