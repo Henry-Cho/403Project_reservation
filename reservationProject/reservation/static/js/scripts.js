@@ -674,7 +674,7 @@ const update_vac = () => {
         ++startTime;
     }
 
-    temp_info.dose = vac_date_info.dose;
+    temp_info.dose = vac_date_info.dose.split(" ")[0];
 
     modal_content.innerHTML = `
     <div class="app_container">
