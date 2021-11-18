@@ -1,5 +1,6 @@
+from django.db import models
 from django.shortcuts import render
-
+from .models import patient, doctor, appointment, appointment_type
 # Create your views here.
 # from django.http import HttpResponse
 
@@ -15,4 +16,10 @@ from django.shortcuts import render
 #     return HttpResponse(sOutput)
 
 def home(request) :
-    return render(request, 'index.html')
+    data = appointment.objects.all()
+
+    context = {
+        "appt" : data
+    }
+
+    return render(request, 'index.html', context)
