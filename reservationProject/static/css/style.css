@@ -11668,7 +11668,6 @@ fieldset:disabled .btn {
 header.masthead {
   position: relative;
   background-color: #343a40;
-  background: url("../static/assets/img/bg-masthead2.jpg") no-repeat center center;
   background-size: cover;
   padding-top: 8rem;
   padding-bottom: 8rem;
@@ -11721,25 +11720,6 @@ header.masthead .h1 {
 .testimonials .testimonial-item img {
   max-width: 12rem;
   box-shadow: 0px 5px 5px 0px #adb5bd;
-}
-
-.call-to-action {
-  position: relative;
-  background-color: #343a40;
-  background: url("../assets/img/bg-masthead.jpg") no-repeat center center;
-  background-size: cover;
-  padding-top: 7rem;
-  padding-bottom: 7rem;
-}
-.call-to-action:before {
-  content: "";
-  position: absolute;
-  background-color: #1c375e;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0.5;
 }
 
 footer.footer {
@@ -11847,9 +11827,19 @@ footer.footer {
 
 /* infinite bounce */
 @keyframes bounce {
-	0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-	40% {transform: translateY(-30px);}
-	60% {transform: translateY(-15px);}
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
 }
 
 .bounce {
@@ -11873,15 +11863,15 @@ footer.footer {
   border-radius: 50%;
   left: 5px;
   bottom: 5px;
-  transition: all .55s ease-in-out;
+  transition: all 0.55s ease-in-out;
   line-height: 30px;
   text-align: center;
   font-size: 14px;
 }
 
-.toggleBtn.right{
+.toggleBtn.right {
   transform: translateX(20px);
-  transition: all .55s ease-in-out;
+  transition: all 0.55s ease-in-out;
 }
 
 .available_time {
@@ -11893,7 +11883,7 @@ footer.footer {
   width: 50%;
 }
 
-.available_time button{
+.available_time button {
   border: none;
   margin-bottom: 10px;
   padding: 8px 12px;
@@ -11937,7 +11927,7 @@ footer.footer {
 .confirmed {
   color: gray;
   transform: none !important;
-  cursor:default !important;
+  cursor: default !important;
 }
 
 /* dose type */

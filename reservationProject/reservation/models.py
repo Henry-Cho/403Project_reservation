@@ -1,6 +1,8 @@
 from django.db import models
 from datetime import datetime, timedelta
 
+from django.db.models.deletion import DO_NOTHING
+
 # Create your models here.
 
 class patient(models.Model):
@@ -43,9 +45,11 @@ class appointment_type(models.Model):
         return (self.description)
 
 class appointment(models.Model):
-    type = models.ForeignKey(appointment_type, on_delete=models.CASCADE)
+    type = models.ForeignKey(appointment_type, on_delete=DO_NOTHING)
     day_time = models.DateTimeField()
+    doctor = models.ForeignKey(doctor, on_delete=DO_NOTHING)
+    patient = models.ForeignKey(patient, on_delete=DO_NOTHING)
 
     def __str__(self):
-        return (self.type, self.day_time)
+        return str(self.patient)
 

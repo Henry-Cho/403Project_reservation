@@ -1,3 +1,4 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +11,11 @@
     <meta name="author" content="" />
     <title>Schedule an Appointment - BYU Student Health Center</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/download.ico" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'img/download.ico'%} "
+    />
     <!-- Bootstrap icons-->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -24,13 +29,14 @@
       type="text/css"
     />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../static/style.css" type='text/css'rel="stylesheet" />
+    <link href="{% static 'css/style.css'%}" type="text/css" rel="stylesheet" />
     <!-- sweetalert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- <link rel="stylesheet" href="sweetalert2.min.css" type='text/css'> -->
     <!-- JS Script -->
-    <script src="../static/js/scripts.js" defer></script>
+    <script src="{% static 'js/scripts.js'%}" defer></script>
   </head>
+
   <body class="body" onload="showMain()">
     <!-- Modal -->
     <div class="modal_bg" onclick="closeModal()"></div>
@@ -38,7 +44,7 @@
       <div class="toggleBox">
         <label for="covid">See Vaccine Appointment</label>
         <div class="toggle" onclick="toggleClick()">
-            <div class="toggleBtn">OFF</div>
+          <div class="toggleBtn">OFF</div>
         </div>
       </div>
       <div class="modal_content"></div>
@@ -50,64 +56,7 @@
         <a class="btn btn-primary" href="#login">Log In To Schedule</a>
       </div>
     </nav>
-    <!-- Masthead-->
-    <header class="masthead">
-      <div class="container position-relative">
-        <div class="row justify-content-center">
-          <div class="col-xl-6">
-            <div class="text-center text-white">
-              <!-- Page heading-->
-              <h1 class="mb-5">Search your symptom to find a doctor</h1>
-              <form class="form-subscribe">
-                <!-- Email address input-->
-                <div class="row">
-                  <div class="col">
-                    <input
-                      class="form-control form-control-lg"
-                      placeholder="Enter Symptoms Here"
-                    />
-                  </div>
-                  <div class="col-auto">
-                    <button
-                      class="btn btn-primary btn-lg"
-                      id="submitButton"
-                      type="submit"
-                    >
-                      Search
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-    <!-- Icons Grid-->
-    <section class="features-icons bg-light text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-              <div class="features-icons-icon d-flex">
-                <i class="bi bi-calendar-date m-auto text-icon" id="calendar" onclick="popModal('app')"></i>
-              </div>
-              <h3 class="calendar_title">Appointment</h3>
-              <p class="lead mb-0" id="calendar_description">See your appointment detail</p>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3" id="vac_app">
-              <div class="features-icons-icon d-flex">
-                <i class="bi bi-lightning m-auto text-icon" onclick="popModal('vac')"></i>
-              </div>
-              <h3>COVID Vaccination</h3>
-              <p class="lead mb-0">Schedule your vaccination ASAP</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    {%block content %} {% endblock %}
 
     <!-- Footer-->
     <footer class="footer bg-blue">
@@ -120,7 +69,7 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+    <script src="{% static 'js/scripts.js'%}"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
