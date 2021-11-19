@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<h1>Hello, add an appointment for:</h1>
+{%for i in appt%}
+
+<h1>{{i.patient}}</h1>
+
+{%endfor%} {%endblock%}

@@ -271,10 +271,8 @@ function popModal(type) {
     modal_content.innerHTML = `
     <div class="app_container">
         <div class="app_header">
-
-        <p class="app_title"> Vaccination Appointment</p>
+        <p class="app_title">Vaccination Appointment</p>
     </div>
-
     <p class="byuID">Your BYU ID: <b>${appointment_info.BYU_ID}</b></p>
     <div>
         <p>Appointment Date: <b>${vac_date_info.date}</b></p>
