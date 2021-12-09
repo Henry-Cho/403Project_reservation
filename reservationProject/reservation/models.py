@@ -1,4 +1,7 @@
 from django.db import models
+
+# Create your models here.
+from django.db import models
 from datetime import datetime, timedelta
 
 from django.db.models.deletion import DO_NOTHING
@@ -45,18 +48,22 @@ class doctor(models.Model):
         db_table = 'doctor'
 
 class appointment_type(models.Model):
-    description = models.CharField(max_length=100)
+    description = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return (self.description)
     class Meta:
         db_table = 'appointment_type'
+
 class appointment(models.Model):
-    type = models.ForeignKey(appointment_type, on_delete=DO_NOTHING)
+    appointment_type = models.ForeignKey(appointment_type, on_delete=DO_NOTHING, to_field="description")
     day_time = models.DateTimeField()
     doctor = models.ForeignKey(doctor, on_delete=DO_NOTHING)
     patient = models.ForeignKey(patient, on_delete=DO_NOTHING)
+    notes = models.CharField(max_length=200)
 
     def __str__(self):
         return str(self.patient)
 
+    class Meta:
+        db_table = 'appointment'
