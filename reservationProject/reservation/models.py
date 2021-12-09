@@ -20,6 +20,9 @@ class patient(models.Model):
     def full_name(self):
          return '%s %s' % (self.first_name, self.last_name)
 
+    class Meta:
+        db_table = 'patient'
+
     def save(self):
         self.first_name = self.first_name.upper()
         self.last_name = self.last_name.upper()
@@ -38,12 +41,16 @@ class doctor(models.Model):
     def doc_name(self):
         return 'Dr. %s' %(self.last_name)
 
+    class Meta:
+        db_table = 'doctor'
+
 class appointment_type(models.Model):
     description = models.CharField(max_length=100)
 
     def __str__(self):
         return (self.description)
-
+    class Meta:
+        db_table = 'appointment_type'
 class appointment(models.Model):
     type = models.ForeignKey(appointment_type, on_delete=DO_NOTHING)
     day_time = models.DateTimeField()
