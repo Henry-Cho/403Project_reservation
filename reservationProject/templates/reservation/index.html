@@ -8,13 +8,16 @@
           <div class="text-center text-white">
             <!-- Page heading-->
             <h1 class="mb-5">Enter a Valid BYU Student ID</h1>
-            <form class="form-subscribe">
+            <form class="form-subscribe" id="form_subscribe" name="form" method="get" action="{% url 'login' %}">
               <!-- Email address input-->
               <div class="row">
                 <div class="col">
                   <input
                     class="form-control form-control-lg"
                     placeholder="You should enter NINE digits. ex(00-000-0000)"
+                    name="search"
+                    maxlength="9"
+                    required
                   />
                 </div>
                 <div class="col-auto">
@@ -34,42 +37,6 @@
     </div>
   </header>
   <!-- Icons Grid-->
-  <section class="features-icons bg-light text-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i
-                class="bi bi-calendar-date m-auto text-icon"
-                id="calendar"
-                onclick="popModal('app')"
-              ></i>
-            </div>
-            <h3 class="calendar_title">Appointment</h3>
-            <p class="lead mb-0" id="calendar_description">
-              See your appointment detail
-            </p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div
-            class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3"
-            id="vac_app"
-          >
-            <div class="features-icons-icon d-flex">
-              <i
-                class="bi bi-lightning m-auto text-icon"
-                onclick="popModal('vac')"
-              ></i>
-            </div>
-            <h3>COVID Vaccination</h3>
-            <p class="lead mb-0">Schedule your vaccination ASAP</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 </body>
 
 {%endblock%}

@@ -140,7 +140,7 @@ function popModal(type) {
                 </div>
             </div>
             `;
-      modal_bg.style.height = `${restHeight}px`;
+      modal_bg.style.height = `100vh`;
       modal_bg.style.display = "block";
       modal.style.display = "block";
       return;
@@ -288,7 +288,7 @@ function popModal(type) {
     </div>
         `;
   }
-  modal_bg.style.height = `${restHeight}px`;
+  modal_bg.style.height = `100vh`;
   modal_bg.style.display = "block";
   modal.style.display = "block";
 }
