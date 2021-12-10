@@ -1,6 +1,6 @@
 from django.db import models
 from django.shortcuts import render
-from .models import patient, doctor, appointment, appointment_type
+from .models import Patient, Appointment
 # Create your views here.
 # from django.http import HttpResponse
 
@@ -16,7 +16,7 @@ from .models import patient, doctor, appointment, appointment_type
 #     return HttpResponse(sOutput)
 
 def indexPageView(request) :
-    data = appointment.objects.all()
+    data = Appointment.objects.all()
 
     context = {
         "appt" : data
@@ -25,7 +25,7 @@ def indexPageView(request) :
     return render(request, 'reservation/index.html', context)
 
 def addPageView(request) :
-    data = appointment.objects.all()
+    data = Appointment.objects.all()
 
     context = {
         "appt" : data
