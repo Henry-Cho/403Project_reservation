@@ -1,20 +1,20 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
   <!-- Masthead-->
-  <header class="masthead" background: url(../../static/img/bg-masthead2.jpg) no-repeat center
-    center;>
+  <header class="masthead" style="background: url('../../static/img/bg-masthead2.jpg') no-repeat
+    center;"">
     <div class="container position-relative">
       <div class="row justify-content-center">
         <div class="col-xl-6">
           <div class="text-center text-white">
             <!-- Page heading-->
-            <h1 class="mb-5">Search your symptom to find a doctor</h1>
+            <h1 class="mb-5">Enter a Valid BYU Student ID</h1>
             <form class="form-subscribe">
               <!-- Email address input-->
               <div class="row">
                 <div class="col">
                   <input
                     class="form-control form-control-lg"
-                    placeholder="Enter Symptoms Here"
+                    placeholder="You should enter NINE digits. ex(00-000-0000)"
                   />
                 </div>
                 <div class="col-auto">
@@ -23,7 +23,7 @@
                     id="submitButton"
                     type="submit"
                   >
-                    Search
+                    Submit
                   </button>
                 </div>
               </div>
