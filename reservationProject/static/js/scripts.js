@@ -271,8 +271,10 @@ function popModal(type) {
     modal_content.innerHTML = `
     <div class="app_container">
         <div class="app_header">
-        <p class="app_title">Vaccination Appointment</p>
+
+        <p class="app_title"> Vaccination Appointment</p>
     </div>
+
     <p class="byuID">Your BYU ID: <b>${appointment_info.BYU_ID}</b></p>
     <div>
         <p>Appointment Date: <b>${vac_date_info.date}</b></p>
@@ -626,11 +628,13 @@ const update_vac = () => {
     }
   }
 
-  let date_buttons = `<div class = "date_btnBox">`;
-  if (available_dates.length > 0) {
-    for (let i = 0; i < available_dates.length; i++) {
-      if (available_dates[i] === vac_date_info.date) {
-        date_buttons += `
+
+    let date_buttons = `<div class = "date_btnBox">`;
+    if (available_dates.length > 0) {
+        for (let i = 0; i < available_dates.length; i++) {
+            if (available_dates[i] === vac_date_info.date) {
+                temp_info.date = vac_date_info.date;
+                date_buttons += `
                 <button id= "${available_dates[i]}" class="dateBtn click" onclick="clickDate(event)">${available_dates[i]}</button>
                 `;
         continue;
@@ -639,16 +643,14 @@ const update_vac = () => {
                 <button id= "${available_dates[i]}" class="dateBtn" onclick="clickDate(event)">${available_dates[i]}</button>
             `;
     }
-    date_buttons += `</div>`;
-  }
 
-  let time_buttons_M = ``;
-  let startTime = 8;
-  for (let i = 0; i < 5; i++) {
-    let time =
-      startTime < 10 ? "0" + startTime.toString() : startTime.toString();
-    if (time === vac_date_info.time.split(" ")[0].split(":")[0]) {
-      time_buttons_M += `
+    let time_buttons_M = ``;
+    let startTime = 8;
+    for (let i = 0; i < 4; i++) {
+        let time = startTime < 10 ? "0" + startTime.toString() : startTime.toString();
+        if (time === vac_date_info.time.split(" ")[0].split(":")[0]) {
+            temp_info.time = vac_date_info.time;
+            time_buttons_M += `
             <button id = "${time}:00" class="timeBtn click" onclick="clickTime(event)">${time}:00 AM</button><br>
             `;
       ++startTime;
@@ -656,16 +658,7 @@ const update_vac = () => {
     }
     time_buttons_M += `
         <button id = "${time}:00" class="timeBtn" onclick="clickTime(event)">${time}:00 AM</button><br>
-        `;
-    ++startTime;
-  }
-
-  let time_buttons_A = ``;
-  for (let i = 0; i < 5; i++) {
-    let time = startTime.toString();
-    if (time === vac_date_info.time.split(" ")[0].split(":")[0]) {
-      time_buttons_A += `
-            <button id = "${time}:00" class="timeBtn click" onclick="clickTime(event)">${time}:00 PM</button><br>
+        <button id = "${time}:00" class="timeBtn click" onclick="clickTime(event)">${time}:00 PM</button><br>
             `;
       ++startTime;
       continue;
@@ -675,7 +668,6 @@ const update_vac = () => {
         `;
     ++startTime;
   }
-
   modal_content.innerHTML = `
     <div class="app_container">
         <div class="app_header">
@@ -718,5 +710,5 @@ const update_vac = () => {
             <button class="cancelBtn" onclick="closeModal()">CLOSE</button>
         </div>
     </div>
-        `;
+    `;
 };
