@@ -37,7 +37,7 @@
     <script src="{% static 'js/scripts.js'%}" defer></script>
   </head>
 
-  <body class="body" onload="showMain()">
+  <body class="body">
     <!-- Modal -->
     <div class="modal_bg" onclick="closeModal()"></div>
     <div class="modal">
@@ -52,7 +52,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-dark bg-blue static-top">
       <div class="container">
-        <a class="navbar-brand" href="#!"><b>BYU Student Health Center</b></a>
+        <a class="navbar-brand" href="{% url 'index' %}"><b>BYU Student Health Center</b></a>
       </div>
     </nav>
     {%block content %} {% endblock %}

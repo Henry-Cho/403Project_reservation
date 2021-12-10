@@ -6,6 +6,17 @@ def indexPageView(request) :
 
     return render(request, 'reservation/index.html')
 
+def loginPageView(req) :
+    input = req.GET['search']
+
+    try: 
+        result = Patient.objects.get(byu_id = input)
+    except :
+        newP = Patient()
+        newP.byu_id = input
+        newP.save()
+    return render(req, 'reservation/login.html')
+
 def addPageView(request) :
     data = Appointment.objects.all()
 
