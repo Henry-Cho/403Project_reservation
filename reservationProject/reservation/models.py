@@ -11,6 +11,9 @@ class Patient(models.Model):
     def __str__(self):
         return self.byu_id
 
+    class Meta:
+        db_table = 'patient'
+
     def save(self):
         super(Patient, self).save()
 
@@ -25,3 +28,5 @@ class Appointment(models.Model):
     def __str__(self):
         return str(self.patient_id)
 
+    class Meta:
+        db_table = 'appointment'
