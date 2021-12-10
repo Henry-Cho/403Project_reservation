@@ -658,8 +658,7 @@ const update_vac = () => {
     }
     time_buttons_M += `
         <button id = "${time}:00" class="timeBtn" onclick="clickTime(event)">${time}:00 AM</button><br>
-        `;
-            <button id = "${time}:00" class="timeBtn click" onclick="clickTime(event)">${time}:00 PM</button><br>
+        <button id = "${time}:00" class="timeBtn click" onclick="clickTime(event)">${time}:00 PM</button><br>
             `;
       ++startTime;
       continue;
@@ -669,6 +668,7 @@ const update_vac = () => {
         `;
     ++startTime;
   }
+  modal_content.innerHTML = `
     <div class="app_container">
         <div class="app_header">
         <p class="app_title">${appointment_info.user_name}'s Vaccination</p>
@@ -710,5 +710,5 @@ const update_vac = () => {
             <button class="cancelBtn" onclick="closeModal()">CLOSE</button>
         </div>
     </div>
-        `;
+    `;
 };
